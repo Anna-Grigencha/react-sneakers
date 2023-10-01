@@ -40,14 +40,15 @@ function App() {
 
   const onAddToCart = (obj) => {
 
-    //if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
-    //axios.delete(`https://64ef46be219b3e2873c43e2f.mockapi.io/cart/${obj.id}`);
-    //setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
-    // }
-    //else {
-    axios.post('https://64ef46be219b3e2873c43e2f.mockapi.io/cart', obj);
-    setCartItems((prev) => [...prev, obj]);
-    //}
+
+    if (cartItems.find((item) => Number(item.id) === Number(obj.id))) {
+      axios.delete(`https://64ef46be219b3e2873c43e2f.mockapi.io/cart/${obj.id}`);
+      setCartItems((prev) => prev.filter((item) => Number(item.id) !== Number(obj.id)));
+    }
+    else {
+      axios.post('https://64ef46be219b3e2873c43e2f.mockapi.io/cart', obj);
+      setCartItems((prev) => [...prev, obj]);
+    }
   }
 
   const onRemoveItem = (id) => {
@@ -56,8 +57,7 @@ function App() {
   }
 
   const onAddToFavorite = async (obj) => {
-    // axios.post('https://64f972144098a7f2fc14645e.mockapi.io/favorites', obj);
-    //setFavorites((prev) => [...prev, obj]);
+
     try {
       if (favorites.find((favObj) => favObj.id === obj.id)) {
         axios.delete(`https://64f972144098a7f2fc14645e.mockapi.io/favorites/${obj.id}`);
